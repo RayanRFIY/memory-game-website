@@ -104,6 +104,7 @@ function markWrong(id){
     const inner = card.firstChild;
     const back = inner.lastChild;
     const shakeAnimation = async () => {
+        await sleep(680);
         back.classList.add("border","border-danger");
         card.classList.add("shaking");
         await sleep(1000);
