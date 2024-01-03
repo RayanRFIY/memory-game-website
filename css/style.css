@@ -117,6 +117,14 @@ img{
     border: solid 1px rgb(140, 250, 118);
 }
 
+.replay{
+    position: absolute;
+    max-width: 73px;
+    transform:translateX(15.6rem) translateY(1rem);
+    font-size: 40px;
+    cursor: pointer;
+}
+
 /*ANIMATIONS*/
 
 @keyframes titleIntro {

@@ -29,11 +29,12 @@ cards[15] = new Card(15,"Cat","./images/cat.png");
 cards[16] = new Card(16,"Coin","./images/coin.png");
 cards[17] = new Card(17,"Brain","./images/icon.png");
 
+var attempts = 20;
+
 var boardCards = [];
 
 function createBoard(){
     const board = document.getElementById("board");
-    board.innerHTML = "";
     boardCards = getBoardArray();
     for (let i = 0; i < 6; i++) {
         let row = document.createElement("div");
@@ -69,6 +70,10 @@ function createBoard(){
         }
         board.appendChild(row);
     }
+    const button = document.createElement("i");
+    button.classList.add("bi","bi-arrow-counterclockwise","replay");
+    button.setAttribute("onclick","playAgain()");
+    board.appendChild(button);
 }
 
 const selected = [];
@@ -78,7 +83,7 @@ function selectCard(id){
     const card = document.getElementById(id);
     const inner = card.firstChild;
 
-    if(shaking ||inner.classList.contains("flipped")){
+    if(shaking ||inner.classList.contains("flipped") || shuffling){
         return;
     }
 
@@ -157,4 +162,36 @@ function shuffle(array) {
     }
   
     return array;
+  }
+
+  var shuffling = false;
+
+  function playAgain(){
+    selected.length = 0;
+    shaking = false;
+    shuffling = true;
+    attempts = 20;
+    const newBoard = shuffle(boardCards);
+
+    for (let i = 0; i < 36; i++) {
+        const card = document.getElementById(i);
+        const inner = card.firstChild;
+        inner.classList.remove("correct");
+        restoreCard(i);
+    }
+
+    const replay = async () => {
+        await sleep(680);
+        for (let i = 0; i < 36; i++) {
+            const card = document.getElementById(i);
+            const inner = card.firstChild;
+            const back = inner.lastChild;
+            const img = back.firstChild;
+            img.src = newBoard[i].imgUrl;
+            img.alt = newBoard[1].name;
+        }
+        shuffling = false;
+    }
+    replay();
+    
   }
