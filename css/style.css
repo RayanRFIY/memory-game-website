@@ -1,0 +1,167 @@
+:root{
+    --bg-color:  rgb(29, 29, 29);
+    --brown: rgb(112, 70, 70);
+}
+
+body{
+    background-color: var(--bg-color);
+    background-image: linear-gradient(to right, white, var(--bg-color));
+    overflow-x: hidden;
+}
+
+.text-brown{
+    color: var(--brown);
+}
+
+.border-brown{
+    border: 1px solid var(--brown);
+}
+
+.rubik-font{
+    font-family: 'Rubik Doodle Shadow', serif;
+    font-size: 50px;
+}
+
+.card-hover-anim{
+    height: 90px;
+    width: 90px;
+    user-select: none;
+    cursor: pointer;
+    border: var(--brown) solid 1px;
+}
+
+#board{
+    max-width: fit-content;
+    left: 0;
+    right: 0;
+    position: absolute;
+    top: 20%;
+    animation: boardIntro 2s 3s both;
+    user-select: none;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    width: 90px;
+    height: 90px;
+    border-radius: 10%;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    border-radius: 10%;
+    transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-card-animation{
+    cursor: pointer;
+}
+
+.flip-card-animation:hover .flip-card-front{
+    animation: hoverCard 0.3s ease-out normal both;
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+    border: solid 1px var(--brown);
+    font-size: 60px;
+    background-color: var(--bg-color);
+    border-radius: 10%;
+    color: var(--brown);
+}
+
+/* Style the back side */
+.flip-card-back {
+    border: solid 1px var(--brown);
+    border-radius: 10%;
+    background-color: var(--bg-color);
+    transform: rotateY(180deg);
+}
+
+.title{
+    right: 0;
+    left: 0;
+    animation: titleIntro 5s both 1s;
+}
+
+img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.shaking{
+    animation: shake 0.3s 3;
+}
+
+.correct{
+    border: solid 1px rgb(140, 250, 118);
+}
+
+/*ANIMATIONS*/
+
+@keyframes titleIntro {
+    from{
+        transform: scale(3);
+        top: 40%;
+        position: absolute;
+    }
+    to{
+        transform: scale(1);
+        top: 5%;
+        position: absolute;
+    }
+}
+
+@keyframes boardIntro {
+    from{
+        display: none;
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to{
+        display: block;
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes hoverCard {
+    100%{
+        transform: translateY(-10px);
+        border: aqua solid 1px;
+    }
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
