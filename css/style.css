@@ -59,7 +59,11 @@ div{
     max-width: fit-content;
     left: 0;
     right: 0;
-    /* animation: boardIntro 2s 3s both; */
+    animation: boardIntro 2s 3s both; 
+}
+
+.header{
+    animation: attemptsIntro 2s 3s both;
 }
 
 .flip-card {
@@ -116,7 +120,7 @@ div{
     left: 0;
     padding-top: 84px;
     font-size: 50px;
-    /* animation: titleIntro 5s both 1s; */
+    animation: titleIntro 5s both 1s;
 }
 
 img{
