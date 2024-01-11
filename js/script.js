@@ -29,7 +29,7 @@ cards[15] = new Card(15,"Cat","./images/cat.png");
 cards[16] = new Card(16,"Coin","./images/coin.png");
 cards[17] = new Card(17,"Brain","./images/icon.png");
 
-var attempts = 20;
+var points1 = 0, points2 = 0;
 
 var boardCards = [];
 
@@ -71,7 +71,7 @@ function createBoard(){
         board.appendChild(row);
     }
     const button = document.createElement("i");
-    button.classList.add("bi","bi-arrow-counterclockwise","replay");
+    button.classList.add("bi","bi-arrow-counterclockwise","text-brown","replay");
     button.setAttribute("onclick","playAgain()");
     board.appendChild(button);
 }
@@ -99,6 +99,12 @@ function selectCard(id){
             shaking = true;
             markWrong(selected[0]);
             markWrong(selected[1]);
+            attempts--;
+            const wrong = async () => {
+                await sleep(680);
+                console.log("wrong");
+            }
+            wrong();
         }
         selected.length = 0;
     }
@@ -110,8 +116,12 @@ function markWrong(id){
     const back = inner.lastChild;
     const shakeAnimation = async () => {
         await sleep(680);
-        back.classList.add("border","border-danger");
-        card.classList.add("shaking");
+        
+        if(!shuffling){
+            back.classList.add("border","border-danger");
+            card.classList.add("shaking");
+        }
+        
         await sleep(1000);
         back.classList.remove("border","border-danger");
         card.classList.remove("shaking");
@@ -176,6 +186,7 @@ function shuffle(array) {
     for (let i = 0; i < 36; i++) {
         const card = document.getElementById(i);
         const inner = card.firstChild;
+        card.classList.remove("shaking");
         inner.classList.remove("correct");
         restoreCard(i);
     }
@@ -193,5 +204,17 @@ function shuffle(array) {
         shuffling = false;
     }
     replay();
-    
+    lost = false;
+  }
+
+  var lost = false;
+
+  function losingScreen(){
+    lost = true;
+    const board = document.getElementById("board");
+    board.classList.add("opacity-50");
+    const attemptsDiv = document.getElementById("attempts");
+    attemptsDiv.classList.add("opacity-50");
+    const loss = document.getElementById("losingscreen");
+    loss.classList.remove("d-none");
   }

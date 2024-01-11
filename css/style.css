@@ -5,8 +5,12 @@
 
 body{
     background-color: var(--bg-color);
-    background-image: linear-gradient(to right, white, var(--bg-color));
     overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+div{
+    user-select: none;
 }
 
 .text-brown{
@@ -25,7 +29,6 @@ body{
 .card-hover-anim{
     height: 90px;
     width: 90px;
-    user-select: none;
     cursor: pointer;
     border: var(--brown) solid 1px;
 }
@@ -34,21 +37,16 @@ body{
     max-width: fit-content;
     left: 0;
     right: 0;
-    position: absolute;
-    top: 20%;
     animation: boardIntro 2s 3s both;
-    user-select: none;
 }
 
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
     width: 90px;
     height: 90px;
     border-radius: 10%;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    perspective: 1000px;
 }
 
-/* This container is needed to position the front and back side */
 .flip-card-inner {
     position: relative;
     width: 100%;
@@ -59,7 +57,6 @@ body{
     transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
 .flipped {
     transform: rotateY(180deg);
 }
@@ -72,7 +69,6 @@ body{
     animation: hoverCard 0.3s ease-out normal both;
 }
 
-/* Position the front and back side */
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;
@@ -81,7 +77,6 @@ body{
     backface-visibility: hidden;
 }
 
-/* Style the front side (fallback if image is missing) */
 .flip-card-front {
     border: solid 1px var(--brown);
     font-size: 60px;
@@ -90,7 +85,6 @@ body{
     color: var(--brown);
 }
 
-/* Style the back side */
 .flip-card-back {
     border: solid 1px var(--brown);
     border-radius: 10%;
@@ -101,12 +95,15 @@ body{
 .title{
     right: 0;
     left: 0;
+    padding-top: 84px;
     animation: titleIntro 5s both 1s;
 }
 
 img{
     max-width: 100%;
     max-height: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .shaking{
@@ -118,9 +115,9 @@ img{
 }
 
 .replay{
-    position: absolute;
+    position: relative;
+    top: 3rem;
     max-width: 73px;
-    transform:translateX(15.6rem) translateY(1rem);
     font-size: 40px;
     cursor: pointer;
 }
@@ -129,14 +126,10 @@ img{
 
 @keyframes titleIntro {
     from{
-        transform: scale(3);
-        top: 40%;
-        position: absolute;
+        transform: scale(3) translateY(80%);
     }
     to{
         transform: scale(1);
-        top: 5%;
-        position: absolute;
     }
 }
 
@@ -150,6 +143,17 @@ img{
         display: block;
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+@keyframes attemptsIntro {
+    from{
+        display: none;
+        opacity: 0;
+    }
+    to{
+        display: inline;
+        opacity: 1;
     }
 }
 
