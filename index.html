@@ -15,26 +15,42 @@
 <body  onload="createBoard()">
 
 
-
+    <div class="text-brown text-center title">
+        <h1 class="rubik-font">Memory Game</h1>
+    </div>
     <div class="container text-center">
         <div class="row">
-          <div class="col-md-2">
-            Column
+          <div class="col-md-2 d-flex flex-column justify-content-center">
+            <div class="text-first-player rubik-font fs-2">
+                Player 1
+            </div>
+            <div class="text-first-player rubik-font fs-3">
+                Score
+                <br>
+                <span id="playerOneScore">0</span>
+            </div>
           </div>
           <div class="col-md-8 col-12">
-            <div class="text-brown text-center title">
-                <h1 class="rubik-font">Memory Game</h1>
-            </div>
-            <div class="boxer">
             
+            <div class="boxer rubik-font">
+                <div id="winner" class="d-none">
+                    CIAOO
+                </div>
                 <div class="pt-5">
                     <div class=" mx-auto" id="board">
                     </div>
                 </div>
             </div>
           </div>
-          <div class="col-md-2">
-            Column
+          <div class="col-md-2 d-flex flex-column justify-content-center">
+            <div class="text-second-player rubik-font fs-2">
+                Player 2
+            </div>
+            <div class="text-second-player rubik-font fs-3">
+                Score
+                <br>
+                <span id="playerTwoScore">0</span>
+            </div>
           </div>
         </div>
       </div>

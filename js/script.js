@@ -8,7 +8,7 @@ class Card{
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-const cards = [];
+const cards = []; //objects of the class card
 
 cards[0] = new Card(0,"Skull","./images/skull.png");
 cards[1] = new Card(1,"Key","./images/key.png");
@@ -30,12 +30,17 @@ cards[16] = new Card(16,"Coin","./images/coin.png");
 cards[17] = new Card(17,"Brain","./images/icon.png");
 
 var points1 = 0, points2 = 0;
+var turn = Math.floor(Math.random() * 2) + 1;
 
-var boardCards = [];
+var boardCards = []; //the cards which values are going to be displayed on the board
+
+var tiles = []; //div elements of all cards
 
 function createBoard(){
     const board = document.getElementById("board");
     boardCards = getBoardArray();
+    let boardStyle = turn == 1 ? "first-player" : "second-player";
+
     for (let i = 0; i < 6; i++) {
         let row = document.createElement("div");
         row.classList.add("d-flex","flex-row");
@@ -51,13 +56,13 @@ function createBoard(){
             inner.classList.add("flip-card-inner");
             //front face of the card (used later on)
             let front = document.createElement("div");
-            front.classList.add("flip-card-front", "d-flex","flex-column","justify-content-center");
+            front.classList.add("flip-card-front", "border-" + boardStyle, "d-flex","flex-column", "justify-content-center");
             let frontSymbol = document.createElement("i");
             frontSymbol.classList.add("bi","bi-question-circle","text-brown");
             front.appendChild(frontSymbol);
             //back face of the card
             let back = document.createElement("div");
-            back.classList.add("flip-card-back","text-brown");
+            back.classList.add("flip-card-back", "border-" + boardStyle, "text-" + boardStyle);
             let cardImg = document.createElement("img");
             cardImg.src = boardCards[id].imgUrl;
             cardImg.alt = boardCards[id].name;
@@ -67,6 +72,7 @@ function createBoard(){
             inner.appendChild(back);
             card.appendChild(inner);
             row.appendChild(card);
+            tiles.push(card);
         }
         board.appendChild(row);
     }
@@ -92,17 +98,29 @@ function selectCard(id){
     selected.push(id);
     if(selected.length == 2){
         if(boardCards[selected[0]].value == boardCards[selected[1]].value){
-            inner.classList.add("correct");
-            document.getElementById(selected[0]).firstChild.classList.add("correct");
+            card.classList.add("correct");
+            document.getElementById(selected[0]).classList.add("correct");
+            if (turn == 1) {
+                points1++;
+            }
+            else{
+                points2++;
+            }
+
+            refreshPoints();
+
+            if(points1 + points2 == 18){
+                win(points1,points2);
+            }
         }
         else{
             shaking = true;
             markWrong(selected[0]);
             markWrong(selected[1]);
-            attempts--;
             const wrong = async () => {
                 await sleep(680);
                 console.log("wrong");
+                changeTurn();
             }
             wrong();
         }
@@ -110,8 +128,44 @@ function selectCard(id){
     }
 }
 
+function refreshPoints() {
+    let points = document.getElementById("playerOneScore");
+    points.innerHTML = points1;
+    points = document.getElementById("playerTwoScore");
+    points.innerHTML = points2;
+}
+
+function win(a,b) {
+    //TODO
+    let winner = "";
+    let winnerClass = "";
+    if(a > b){
+        winner = "Player 1 Wins!";
+        winnerClass = "text-first-player";
+    }
+    else if(a < b){
+        winner = "Player 2 Wins!";
+        winnerClass = "text-second-player";
+    }
+    else{
+        winner = "It's a Draw!";
+        winnerClass = "text-draw";
+    }
+
+    const winMessage = document.getElementById("winner");
+    winMessage.classList.add(winnerClass);
+    winMessage.innerHTML = winner;
+    winMessage.classList.remove("d-none");
+}
+
+function changeTurn(){
+    turn = turn == 1 ? 2 : 1;
+
+    changeColors(turn);
+}
+
 function markWrong(id){
-    const card = document.getElementById(id);
+    const card = tiles[id];
     const inner = card.firstChild;
     const back = inner.lastChild;
     const shakeAnimation = async () => {
@@ -133,7 +187,7 @@ function markWrong(id){
 
 function flipAll(){
     for (let i = 0; i < 36; i++) {
-        const card = document.getElementById(i);
+        const card = tiles[i];
         const inner = card.firstChild;
         card.classList.toggle("flip-card-animation");
         inner.classList.toggle("flipped");
@@ -141,7 +195,7 @@ function flipAll(){
 }
 
 function restoreCard(id){
-    const card = document.getElementById(id);
+    const card = tiles[id];
     const inner = card.firstChild;
     card.classList.add("flip-card-animation");
     inner.classList.remove("flipped");
@@ -157,6 +211,26 @@ function getBoardArray(){
     const boardArray = shuffle(array);
 
     return boardArray;
+}
+
+function changeColors(n){
+    let current = n == 1 ? "first" : "second";
+    let past = n == 1 ? "second" : "first";
+    for (let i = 0; i < tiles.length; i++) {
+        const card = tiles[i];
+        const inner = card.firstChild;
+        const front = inner.firstChild;
+        const back = inner.lastChild;
+        if(!card.classList.contains("correct")){
+            front.classList.add("border-"+current+"-player");
+            front.classList.remove("border-"+past+"-player");
+            back.classList.add("border-"+current+"-player");
+            back.classList.remove("border-"+past+"-player");
+            back.classList.add("text-"+current+"-player");
+            back.classList.remove("text-"+past+"-player");
+        }
+        
+    }
 }
 
 function shuffle(array) {
@@ -180,21 +254,29 @@ function shuffle(array) {
     selected.length = 0;
     shaking = false;
     shuffling = true;
-    attempts = 20;
+    points1 = 0;
+    points2 = 0;
+    refreshPoints();
     const newBoard = shuffle(boardCards);
+    const winnerText = document.getElementById("winner");
+    winnerText.className = "";
+    winnerText.classList.add("d-none");
 
     for (let i = 0; i < 36; i++) {
-        const card = document.getElementById(i);
+        const card = tiles[i];
         const inner = card.firstChild;
         card.classList.remove("shaking");
-        inner.classList.remove("correct");
+        card.classList.remove("correct");
         restoreCard(i);
     }
+
+    turn = Math.floor(Math.random() * 2) + 1;
+    changeColors(turn);
 
     const replay = async () => {
         await sleep(680);
         for (let i = 0; i < 36; i++) {
-            const card = document.getElementById(i);
+            const card = tiles[i];
             const inner = card.firstChild;
             const back = inner.lastChild;
             const img = back.firstChild;

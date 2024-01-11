@@ -1,5 +1,9 @@
 :root{
     --bg-color:  rgb(29, 29, 29);
+    --first-player: #0d6efd;
+    --second-player: #ffc107;
+    --draw: #dc3545;
+    --correct: #198754;
     --brown: rgb(112, 70, 70);
 }
 
@@ -21,23 +25,41 @@ div{
     border: 1px solid var(--brown);
 }
 
+.border-first-player{
+    border: 1px solid var(--first-player);
+}
+
+.border-second-player{
+    border: 1px solid var(--second-player);
+}
+
+.text-first-player{
+    color: var(--first-player);
+}
+
+.text-second-player{
+    color: var(--second-player);
+}
+
+.text-draw{
+    color: var(--draw);
+}
+
 .rubik-font{
     font-family: 'Rubik Doodle Shadow', serif;
-    font-size: 50px;
 }
 
 .card-hover-anim{
     height: 90px;
     width: 90px;
     cursor: pointer;
-    border: var(--brown) solid 1px;
 }
 
 #board{
     max-width: fit-content;
     left: 0;
     right: 0;
-    animation: boardIntro 2s 3s both;
+    /* animation: boardIntro 2s 3s both; */
 }
 
 .flip-card {
@@ -78,15 +100,12 @@ div{
 }
 
 .flip-card-front {
-    border: solid 1px var(--brown);
     font-size: 60px;
     background-color: var(--bg-color);
     border-radius: 10%;
-    color: var(--brown);
 }
 
 .flip-card-back {
-    border: solid 1px var(--brown);
     border-radius: 10%;
     background-color: var(--bg-color);
     transform: rotateY(180deg);
@@ -96,7 +115,8 @@ div{
     right: 0;
     left: 0;
     padding-top: 84px;
-    animation: titleIntro 5s both 1s;
+    font-size: 50px;
+    /* animation: titleIntro 5s both 1s; */
 }
 
 img{
@@ -110,8 +130,19 @@ img{
     animation: shake 0.3s 3;
 }
 
+#winner{
+    position: fixed;
+    left: 0;
+    transform: translateY(16rem);
+    z-index: 1;
+    width: 100%;
+    font-size: 2rem;
+}
+
 .correct{
-    border: solid 1px rgb(140, 250, 118);
+    opacity: 0;
+    transition: 1s;
+    transition-delay: 680ms;
 }
 
 .replay{
@@ -122,11 +153,17 @@ img{
     cursor: pointer;
 }
 
+@media screen and (max-width: 767px) {
+    .replay{
+        position: static;
+    }
+  }
+
 /*ANIMATIONS*/
 
 @keyframes titleIntro {
     from{
-        transform: scale(3) translateY(80%);
+        transform: scale(3) translateY(50%);
     }
     to{
         transform: scale(1);
