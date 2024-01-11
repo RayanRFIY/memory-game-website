@@ -157,6 +157,10 @@ img{
     .replay{
         position: static;
     }
+
+    body{
+        overflow-y: visible;
+    }
   }
 
 /*ANIMATIONS*/
