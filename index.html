@@ -12,48 +12,60 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
     <title>Memory Game</title>
 </head>
-<body  onload="createBoard()">
+<body class="form-body" id="body">
 
-
-    <div class="text-brown text-center title">
-        <h1 class="rubik-font">Memory Game</h1>
+<div id="errorMessage" class="text-danger position-absolute d-none">
+</div>
+<div id="nicknameForm" class=" d-flex flex-column justify-content-between h-25">
+    <div id="firstInput">
+        <input class="text-first-player bg-theme border-first-player" type="text" placeholder="Nickname for Player 1" id="playerOneUsername">
     </div>
-    <div class="container text-center">
-        <div class="row">
-          <div class="col-md-2 d-flex flex-column justify-content-center header">
-            <div class="text-first-player rubik-font fs-2">
-                Player 1
-            </div>
-            <div class="text-first-player rubik-font fs-3">
-                Score
-                <br>
-                <span id="playerOneScore">0</span>
-            </div>
-          </div>
-          <div class="col-md-8 col-12">
-            
-            <div class="boxer rubik-font">
-                <div id="winner" class="d-none">
-                    CIAOO
-                </div>
-                <div class="pt-5">
-                    <div class=" mx-auto" id="board">
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="col-md-2 d-flex flex-column justify-content-center header">
-            <div class="text-second-player rubik-font fs-2">
-                Player 2
-            </div>
-            <div class="text-second-player rubik-font fs-3">
-                Score
-                <br>
-                <span id="playerTwoScore">0</span>
-            </div>
-          </div>
+    <button class="btn btn-success" onclick="startGame()">Start</button>
+    <div id="secondInput" class="pt-2">
+        <input class="text-second-player bg-theme border-second-player" type="text" placeholder="Nickname for Player 2" id="playerTwoUsername">
+    </div>
+</div>
+    
+
+<div class="text-brown text-center d-none" id="title">
+    <h1 class="rubik-font">Memory Game</h1>
+</div>
+<div class="container text-center d-none" id="gameboard">
+    <div class="row">
+        <div class="col-md-2 d-flex flex-column justify-content-center header">
+        <div class="text-first-player rubik-font fs-2" id="playerone">
+            Player 1
         </div>
-      </div>
+        <div class="text-first-player rubik-font fs-3">
+            Score
+            <br>
+            <span id="playerOneScore">0</span>
+        </div>
+        </div>
+        <div class="col-md-8 col-12">
+        
+        <div class="boxer rubik-font">
+            <div id="winner" class="d-none">
+                CIAOO
+            </div>
+            <div class="pt-5">
+                <div class=" mx-auto" id="board">
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-2 d-flex flex-column justify-content-center header">
+        <div class="text-second-player rubik-font fs-2" id="playertwo">
+            Player 2
+        </div>
+        <div class="text-second-player rubik-font fs-3">
+            Score
+            <br>
+            <span id="playerTwoScore">0</span>
+        </div>
+        </div>
+    </div>
+    </div>
 
     
     

@@ -36,6 +36,8 @@ var boardCards = []; //the cards which values are going to be displayed on the b
 
 var tiles = []; //div elements of all cards
 
+var usernamePlayerOne, usernamePlayerTwo;
+
 function createBoard(){
     const board = document.getElementById("board");
     boardCards = getBoardArray();
@@ -140,11 +142,11 @@ function win(a,b) {
     let winner = "";
     let winnerClass = "";
     if(a > b){
-        winner = "Player 1 Wins!";
+        winner = usernamePlayerOne + " Wins!";
         winnerClass = "text-first-player";
     }
     else if(a < b){
-        winner = "Player 2 Wins!";
+        winner = usernamePlayerTwo + " Wins!";
         winnerClass = "text-second-player";
     }
     else{
@@ -286,17 +288,29 @@ function shuffle(array) {
         shuffling = false;
     }
     replay();
-    lost = false;
   }
 
-  var lost = false;
+  function startGame(){
+    let playerOne = document.getElementById("playerOneUsername").value;
+    let playerTwo = document.getElementById("playerTwoUsername").value;
+    let warning = document.getElementById("errorMessage");
 
-  function losingScreen(){
-    lost = true;
-    const board = document.getElementById("board");
-    board.classList.add("opacity-50");
-    const attemptsDiv = document.getElementById("attempts");
-    attemptsDiv.classList.add("opacity-50");
-    const loss = document.getElementById("losingscreen");
-    loss.classList.remove("d-none");
+    if(playerOne == "" || playerOne == null || playerTwo == "" || playerTwo == null){
+        warning.innerHTML = "Player nicknames must not be empty!";
+        warning.classList.remove("d-none");
+    }
+    else{
+        usernamePlayerOne = playerOne;
+        usernamePlayerTwo = playerTwo;
+        document.getElementById("playerone").innerHTML = usernamePlayerOne;
+        document.getElementById("playertwo").innerHTML = usernamePlayerTwo;
+        warning.remove();
+        document.getElementById("nicknameForm").remove();
+        let body = document.getElementById("body");
+        body.classList.remove("form-body");
+        body.id = "";
+        document.getElementById("title").classList.remove("d-none");
+        document.getElementById("gameboard").classList.remove("d-none");
+        createBoard();
+    }
   }

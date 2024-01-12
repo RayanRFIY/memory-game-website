@@ -17,8 +17,17 @@ div{
     user-select: none;
 }
 
+input{
+    height: 50px;
+    border-radius: 5px;
+}
+
 .text-brown{
     color: var(--brown);
+}
+
+.bg-theme{
+    background-color: var(--bg-color);
 }
 
 .border-brown{
@@ -47,6 +56,33 @@ div{
 
 .rubik-font{
     font-family: 'Rubik Doodle Shadow', serif;
+}
+
+.form-body{
+    display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+}
+
+#errorMessage{
+    transform: translateY(-160px);
+}
+
+#nicknameForm{
+    width: min-content;
+}
+
+#firstInput ::placeholder{
+    color: var(--first-player);
+    opacity: 0.6;
+}
+
+#secondInput ::placeholder{
+    color: var(--second-player);
+    opacity: 0.6;
 }
 
 .card-hover-anim{
@@ -115,7 +151,7 @@ div{
     transform: rotateY(180deg);
 }
 
-.title{
+#title{
     right: 0;
     left: 0;
     padding-top: 84px;
