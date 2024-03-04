@@ -283,7 +283,7 @@ function shuffle(array) {
             const back = inner.lastChild;
             const img = back.firstChild;
             img.src = newBoard[i].imgUrl;
-            img.alt = newBoard[1].name;
+            img.alt = newBoard[i].name;
         }
         shuffling = false;
     }
